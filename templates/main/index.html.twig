@@ -8,7 +8,15 @@
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         <h1>WELCOME {{app.user.username}}</h1>
 
-        <h3>Your chats</h3>
+        <h3>Start new public chat</h3>
+        {{ form_errors(form) }}
+        {{ form_start(form) }}
+            {{ form_row(form.title) }}<br>
+            <button type="submit" class="btn">Create</button>
+        {{ form_end(form) }}
+
+        <br>
+        <h3>Your recent chats</h3>
         {% for chat in chats %}
             <a href="{{path('app_chat_show', {'id': chat.id})}}">{{chat.title}}</a>
         {% endfor %}
