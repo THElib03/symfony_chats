@@ -19,8 +19,12 @@
         </tbody>
     </table>
 
+
+     
+
     <form method="POST" action="{{path ("new_coment")}}">
-        <input type="text" id="message" name="message" placeholder="Type your message...">
-        <input type="submit" value="Send">
+        <input type="hidden" name="chat_id" value="{{ chat.id }}">
+        <input type="text" name="message" placeholder="Escribe tu mensaje...">
+        <input type="submit" value="Enviar">
     </form>
 {% endblock %}

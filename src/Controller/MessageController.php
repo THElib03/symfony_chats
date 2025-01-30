@@ -78,4 +78,20 @@ final class MessageController extends AbstractController
 
         return $this->redirectToRoute('app_message_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/new', name: 'new_coment',)]
+    public function newComent(Request $request , EntityManagerInterface $entityManagerInterface): Response
+    {
+       $messages = new Message();
+       $messages->setAuthor($this->getUser()) ;
+       $messages->setChat($request->get("chat_id")); 
+       $messages->setText($request->get('message'));
+       $messages->setSendTime(new \DateTime());
+       $entityManagerInterface->persist($messages);
+       $entityManagerInterface->flush();
+
+       return $this->render('chat/show.html.twig', [
+        'messages' => $messages=$messageRepository->findAll(),
+    ]);
+    }
 }
