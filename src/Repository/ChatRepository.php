@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Chat;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -11,11 +12,29 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ChatRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
+    public function __construct(ManagerRegistry $registry){
         parent::__construct($registry, Chat::class);
     }
 
+    public function getUserChats(User $user): mixed{
+        $qb = $this -> createQueryBuilder('c');
+
+        return $qb -> join('c.users', 'u')
+            -> andWhere(':id MEMBER OF c.users')
+            -> setParameter('id', $user -> getId())
+            -> getQuery()
+            -> getResult();
+    }
+
+    public function getActiveChats(User $user): mixed{
+        $qb = $this -> createQueryBuilder('c');
+
+        return $qb -> join('c.users', 'u')
+            -> andWhere(':id NOT MEMBER OF c.users')
+            -> setParameter('id', $user -> getId())
+            -> getQuery()
+            -> getResult();
+    }
 //    /**
 //     * @return Chat[] Returns an array of Chat objects
 //     */
