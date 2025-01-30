@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Chat App{% endblock %}
+
+{% block body %}
+
+<div class="example-wrapper">
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <h1>WELCOME {{app.user.username}}</h1>
+
+        <h3>Your chats</h3>
+        {% for chat in chats %}
+            <a href="{{path('app_chat_show', {'id': chat.id})}}">{{chat.title}}</a>
+        {% endfor %}
+    {% endif %}
+</div>
+
+{% endblock %}

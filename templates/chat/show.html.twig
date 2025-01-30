@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Chat{% endblock %}
+
+{% block body %}
+    <h1>Chat</h1>
+    {# <a href="{{ path('app_chat_index') }}">back to list</a> #}
+    
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ chat.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ chat.title }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <form method="POST" action="{{path ("new_coment")}}">
+        <input type="text" id="message" name="message" placeholder="Type your message...">
+        <input type="submit" value="Send">
+    </form>
+{% endblock %}
