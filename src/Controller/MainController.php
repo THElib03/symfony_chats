@@ -45,15 +45,5 @@ final class MainController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'new_coment',)]
-    public function newComent(Request $request , EntityManagerInterface $entityManagerInterface): Response
-    {
-       $messages = new Message();
-       $messages->setAuthor($this->getUser()) ;
-       $messages->setText($request->request->get('message')) ;
-       $entityManagerInterface->persist($messages);
-       $entityManagerInterface->flush();
 
-       return $this->redirectToRoute('app_main');
-    }
 }
